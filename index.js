@@ -1,14 +1,18 @@
+const fs = require('fs');
 const Discord = require('discord.js');
-const client = new Discord.Client();
-const config = require('./config.json');
+const {prefix, token} = require('./config.json');
 
+const client = new Discord.Client();
+client.commands = new Discord.Collection();
+
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 client.once('ready', () => {
     console.log('Ready!');
 });
 
 client.on('message', async message => {
-    if (!message.content.startsWith(config.prefix) || message.author.bot) return;
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
@@ -17,6 +21,10 @@ client.on('message', async message => {
         const command = require(`./commands/${file}`);
         client.commands.set(command.name, command);
     }
+
+    if (command === 'assign') {
+        client.commands.get('assign').execute(message, args);
+    }
 });
 
-client.token(config.token);
+client.login(token);
