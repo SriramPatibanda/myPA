@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'list',
-	description: 'Ping!',
+	description: 'Lists all tasks',
 	execute(message, args) {
-		message.reply(`Listing for ${message.author.tag}!`);
+		message.reply(`Here is your listing`);
 	},
 };
