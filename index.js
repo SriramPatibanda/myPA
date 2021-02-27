@@ -22,8 +22,12 @@ client.on('message', async message => {
         client.commands.set(command.name, command);
     }
 
-    if (command === 'assign') {
-        client.commands.get('assign').execute(message, args);
+    if (!client.commands.has(command)) return;
+    try {
+        client.commands.get(command).execute(message, args);
+    } catch (error) {
+        console.error(error);
+        message.reply('there was an error trying to execute that command!');
     }
 });
 
