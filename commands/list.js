@@ -10,7 +10,7 @@ module.exports = {
 		// console.log(client.users.fetch(authorId));
 		const taskObj = await Task.sync();
 
-		// await message.reply("**Tasks for you**");
+		// await message.channel.send("**Tasks for you**");
 		let tasks1 = [];
 		const myTasks = await Task.findAll({ where: { assignee: authorId } })
 		await Promise.all(myTasks.map(async (task) => {				
@@ -19,9 +19,9 @@ module.exports = {
 			return Promise.resolve();
 		}))
 					
-		await message.reply("**Tasks for you**");
+		await message.channel.send("**Tasks for you**");
 		tasks1.forEach((task) => {
-			message.reply(`**${task.userName}** - ${task.task}`)
+			message.channel.send(`**${task.userName}** - ${task.task}`)
 		})
 
 		
@@ -33,9 +33,9 @@ module.exports = {
 			return Promise.resolve();
 		}))
 					
-		await message.reply("**Tasks by you**");
+		await message.channel.send("**Tasks by you**");
 		tasks2.forEach((task) => {
-			message.reply(`**${task.userName}** - ${task.task}`)
+			message.channel.send(`**${task.userName}** - ${task.task}`)
 		})
 	}
 };
