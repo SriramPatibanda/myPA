@@ -3,7 +3,8 @@ const { v4: uuidv4 } = require("uuid");
 
 module.exports = {
   name: "assign",
-  description: "Ping!",
+  description: "Assigns a task to an assignee.",
+  usage : " <tag the assignee> <task description> ",
   execute(message, args, client) {
     // args splits the string into words by default.
     // assignee is the first word of the argument.
@@ -11,7 +12,10 @@ module.exports = {
 
     const assignorID = message.author.id;
 
-    const taskDescription = args.join(" ").slice(assignee.id.length + 4 ).trim();
+    const taskDescription = args
+      .join(" ")
+      .slice(assignee.id.length + 4)
+      .trim();
 
     const assignorName = client.users.cache.get(assignorID).username;
 
