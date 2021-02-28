@@ -3,9 +3,10 @@ const Discord = require("discord.js");
 module.exports = {
 	name: 'list',
 	description: 'Lists all tasks',
+	usage: '#list',
 	execute: async (message, args, client) => {
-		// const authorId= message.author.id
-		const authorId = '598921289260073012'
+		const authorId= message.author.id
+		// const authorId = '598921289260073012'
 		// console.log(client.users.fetch(authorId));
 		const taskObj = await Task.sync();
 
@@ -18,7 +19,7 @@ module.exports = {
 			return Promise.resolve();
 		}))
 					
-		await message.reply("**Tasks by you**");
+		await message.reply("**Tasks for you**");
 		tasks1.forEach((task) => {
 			message.reply(`**${task.userName}** - ${task.task}`)
 		})
@@ -27,12 +28,12 @@ module.exports = {
 		let tasks2 = [];
 		const myTasks2 = await Task.findAll({ where: { assignor: authorId } })
 		await Promise.all(myTasks2.map(async (task) => {				
-			const userName = await client.users.fetch(task.dataValues.assignor);
+			const userName = await client.users.fetch(task.dataValues.assignee);
 			tasks2.push({ userName: userName, task: task.task })
 			return Promise.resolve();
 		}))
 					
-		await message.reply("**Tasks for you**");
+		await message.reply("**Tasks by you**");
 		tasks2.forEach((task) => {
 			message.reply(`**${task.userName}** - ${task.task}`)
 		})
