@@ -28,9 +28,9 @@ client.on('message', async message => {
     const command = client.commands.get(commandName);
 
     try {
-        command.execute(message, args);
+        command.execute(message, args,client);
     } catch (error) {
-        console.error(error);
+        console.log(error);
         message.reply('there was an error trying to execute that command!');
     }
 });
