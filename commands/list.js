@@ -21,7 +21,7 @@ module.exports = {
 					
 		await message.channel.send("**Tasks for you**");
 		tasks1.forEach((task) => {
-			message.channel.send(`**${task.userName}** - ${task.task}`)
+			message.channel.send(`**${task.userName}** - ${task.task}`)		
 		})
 
 		
@@ -31,7 +31,7 @@ module.exports = {
 			const userName = await client.users.fetch(task.dataValues.assignee);
 			tasks2.push({ userName: userName, task: task.task })
 			return Promise.resolve();
-		}))
+		},),)
 					
 		await message.channel.send("**Tasks by you**");
 		tasks2.forEach((task) => {
