@@ -13,11 +13,7 @@
     "async": "^3.2.0",
     "discord.js": "^12.5.1",
     "sequelize": "^6.5.0",
-<<<<<<< HEAD
     "sequelize-cockroachdb": "^6.0.0-alpha.0",
     "uuid": "^8.3.2"
-=======
-    "sequelize-cockroachdb": "^6.0.0-alpha.0"
->>>>>>> 42f4efb250f9429c23e12ca5a70e54f8e6f8b64a
   }
 }
