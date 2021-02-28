@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.5.1"
+    "async": "^3.2.0",
+    "discord.js": "^12.5.1",
+    "sequelize": "^6.5.0",
+    "sequelize-cockroachdb": "^6.0.0-alpha.0"
   }
 }
