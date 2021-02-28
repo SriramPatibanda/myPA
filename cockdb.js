@@ -1,45 +1,45 @@
 const Sequelize = require("sequelize-cockroachdb");
 // For secure connection:
-const fs = require('fs');
-const {username,password} = require('./config.json');
+const fs = require("fs");
+const { username, password } = require("./config.json");
 
 // Connect to CockroachDB through Sequelize.
 var sequelize = new Sequelize({
   dialect: "postgres",
   username,
   password,
-  host: 'free-tier.gcp-us-central1.cockroachlabs.cloud',
-  database: 'ragged-bison-977.bank',
-  port: 26257,  
+  host: "free-tier.gcp-us-central1.cockroachlabs.cloud",
+  database: "ragged-bison-977.bank",
+  port: 26257,
   dialectOptions: {
     ssl: {
-    //   rejectUnauthorized: false,
+      //   rejectUnauthorized: false,
       // For secure connection:
-      ca: fs.readFileSync('./certs/cc-ca.crt')
-                .toString()
+      ca: fs.readFileSync("./certs/cc-ca.crt").toString(),
     },
   },
   logging: false,
 });
 // Define the Account model for the "accounts" table.
 const Task = sequelize.define("tasks", {
-    id: {
-      type: Sequelize.UUID,
-      primaryKey: true,
-    },
-    taskID: {
-      type: Sequelize.UUID,
-    },
-    assignor: {
-        type: Sequelize.STRING,
-    },
-    assignee: {
-        type: Sequelize.STRING,
-    },
-    task: {
-        type: Sequelize.STRING,
-    }
-  });
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  taskID: {
+    type: Sequelize.UUID,
+  },
+  assignor: {
+    type: Sequelize.STRING,
+  },
+  assignee: {
+    type: Sequelize.STRING,
+  },
+  task: {
+    type: Sequelize.STRING,
+  },
+});
 
 //   // Create the "accounts" table.
 //   Task.sync()
@@ -71,4 +71,4 @@ const Task = sequelize.define("tasks", {
 //       process.exit(1);
 //     });
 
-module.exports=Task
+module.exports = Task;

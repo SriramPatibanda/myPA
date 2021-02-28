@@ -1,5 +1,5 @@
-const Task=require("../cockdb")
-const Discord = require('discord.js');
+const Task = require("../cockdb");
+const Discord = require("discord.js");
 module.exports = {
 	name: 'list',
 	description: 'Lists all tasks',
