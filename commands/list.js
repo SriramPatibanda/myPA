@@ -13,8 +13,7 @@ module.exports = {
           console.log(task.task + " " + task.assignee);
         });
       });
-	  + 
-	  assignee.id
+    +assignee.id;
     const youValue = tasks[0].map;
     message.reply("**Tasks for you**");
     tasks[1].map(async (task) => {
