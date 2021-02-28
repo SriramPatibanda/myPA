@@ -5,26 +5,19 @@ module.exports = {
 	description: 'Lists all tasks',
 	execute(message, args) {
 		Task.sync()
-		.then(function () {			
-			return Task.findAll();
-		})
-		.then((tasks) => {
-			tasks.forEach(function (task) {
-				console.log(task.task + " " + task.assignee);
-			});
-		})
-
-		const youValue= tasks[0].map		
-		message.reply("**Tasks for you**")
-		tasks[1].map(async (task) => {
-			await message.reply(`${task.desc} - ${task.who}`)
-		})
-		message.reply("**Tasks by you**")
-		tasks[0].map(async (task) => {
-			await message.reply(`${task.desc} - ${task.who}`)
-		})
-		
-		
-
-	},
+			.then(()=> Task.findAll())
+			.then(tasks => {
+				message.reply("**Tasks for you**")				
+				tasks.map(async (task) => {
+					await message.reply(`${task.assignor} - ${task.assignee}`)
+				})				
+			})
+			.then(() => Task.findAll())
+			.then(tasks => {
+				message.reply("**Tasks by you**")
+				tasks[0].map(async (task) => {
+					await message.reply(`${task.assignor} - ${task.assignee}`)
+				})
+			})
+		},
 };
