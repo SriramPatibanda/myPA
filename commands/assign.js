@@ -1,3 +1,6 @@
+const Task = require("../cockdb");
+const { v4: uuidv4 } = require('uuid');
+
 module.exports = {
 	name: 'assign',
 	description: 'Ping!',
@@ -6,10 +9,30 @@ module.exports = {
 		// assignee is the first word of the argument.
 		const assignee = message.mentions.users.first();
 
-		const assignor = message.author.id;
-
+		const assignorID = message.author.id;
+		
 		const taskDescription = args.join(' ').slice(assignee.length).trim();
 
-		client.users.cache.get(assignee.id).send(taskDescription);
-	},
-};
+		const assignorName = client.users.cache.get(assignorID).username;
+
+		client.users.cache.get(assignee.id).send(assignorName + ' assigned you the following task :' + '\n' + taskDescription);
+
+		Task.sync()
+			.then(function () {
+				return Task.bulkCreate([
+					{  
+						taskID: uuidv4(),
+						assignee: assignee.id,
+						assignor: assignorID,
+						task: taskDescription,
+					}
+				  ]);
+			})
+
+			.catch(function (err) {
+				    console.error("error: " + err.message);
+				    process.exit(1);
+				  });
+		 
+			} 
+		}

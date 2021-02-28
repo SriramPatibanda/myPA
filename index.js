@@ -11,20 +11,24 @@ client.once('ready', () => {
     console.log('Ready!');
 });
 
+
+
 client.on('message', async message => {
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if ( (!message.content.startsWith(prefix) || message.author.bot )) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
+    const commandName = args.shift().toLowerCase();
 
     for (const file of commandFiles) {
         const command = require(`./commands/${file}`);
         client.commands.set(command.name, command);
     }
+    
+    if (!client.commands.has(commandName)) return;
+    const command = client.commands.get(commandName);
 
-    if (!client.commands.has(command)) return;
     try {
-        client.commands.get(command).execute(message, args, client);
+        command.execute(message, args, client);
         
     } catch (error) {
         console.error(error);
