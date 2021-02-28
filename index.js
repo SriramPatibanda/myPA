@@ -13,6 +13,7 @@ client.once("ready", () => {
   console.log("Ready!");
 });
 
+<<<<<<< HEAD
 client.on("message", async (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -33,6 +34,30 @@ client.on("message", async (message) => {
     console.error(error);
     message.reply("there was an error trying to execute that command!");
   }
+=======
+
+
+client.on('message', async message => {
+    if ( (!message.content.startsWith(prefix) || message.author.bot )) return;
+
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const commandName = args.shift().toLowerCase();
+
+    for (const file of commandFiles) {
+        const command = require(`./commands/${file}`);
+        client.commands.set(command.name, command);
+    }
+    
+    if (!client.commands.has(commandName)) return;
+    const command = client.commands.get(commandName);
+
+    try {
+        command.execute(message, args);
+    } catch (error) {
+        console.error(error);
+        message.reply('there was an error trying to execute that command!');
+    }
+>>>>>>> 42f4efb250f9429c23e12ca5a70e54f8e6f8b64a
 });
 
 client.login(token);
